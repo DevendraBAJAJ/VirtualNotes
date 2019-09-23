@@ -1,3 +1,28 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <ion-menu side="start" menuId="m1">
+      <ion-header>
+        <ion-toolbar>
+          <ion-title slot="start">
+             VirtualNotes
+          </ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <ion-list>
+          <ion-menu-toggle menu="m1">
+            <ion-item routerLink="/settings" button>
+              <ion-icon name="settings" slot="start"></ion-icon>
+              <ion-label>Settings</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle menu="m1">
+            <ion-item (click)="onLogout()" button>
+              <ion-icon name="exit" slot="start"></ion-icon>
+              <ion-label>Logout</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+      </ion-content>
+    </ion-menu>
+  <ion-router-outlet main></ion-router-outlet>
 </ion-app>

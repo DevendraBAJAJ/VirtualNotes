@@ -1,5 +1,7 @@
 {
   "name": "virtualNotes",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular"
 }

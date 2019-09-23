@@ -1,0 +1,40 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button [defaultHref]="'/notes'"></ion-back-button>
+      </ion-buttons>
+      <ion-title>Add Note</ion-title>
+      <ion-buttons slot="primary">
+        <ion-button (click)="onUpdateNote()" [disabled]="!form?.valid">
+          <ion-icon name="checkmark" slot="icon-only"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content class="ion-padding">
+    <div *ngIf="isLoading" class="ion-text-center">
+      <ion-spinner color="primary"></ion-spinner>
+    </div>
+    <form [formGroup]="form" *ngIf="!isLoading">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-input type="text" placeholder="Add a title" autocomplete autocorrect formControlName="title"></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-textarea type="text" formControlName="description" placeholder="Jot down something ..." rows="50"></ion-textarea>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="!form.get('description').valid && form.get('description').touched">
+            <ion-col size-sm="6" offset-sm="3">
+              <p>You cannot add a blank note.</p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </form>
+  </ion-content>  

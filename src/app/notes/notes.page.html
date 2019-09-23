@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button menu="m1"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Virtual Notes</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="addNote()">
+        <ion-icon name="add" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding" scroll="true">
+  <ion-grid *ngIf="isLoading" class="ion-no-padding ion-text-center">
+    <ion-row>
+      <ion-col size="12" size-sm="8" offset-sm="2">
+        <ion-spinner color="primary"></ion-spinner>
+      </ion-col>
+    </ion-row>    
+  </ion-grid>
+  <ion-grid *ngIf="!isLoading && loadedNotes.length <= 0" class="ion-text-center no-notes">
+    <ion-row>
+      <ion-col size="12" size-sm="8" offset-sm="2">
+        <ion-text>You haven't taken notes yet.<br>Tap the + icon to take one.</ion-text>
+      </ion-col>
+    </ion-row>    
+  </ion-grid>
+    <ngx-masonry [options]="{ percentPosition: true }" *ngIf="!isLoading && loadedNotes.length > 0">
+      <div ngxMasonryItem class="masonry-item" *ngFor="let note of loadedNotes">
+        <ion-card (press)="showActionSheet(note)">
+          <div routerDirection="forward" [routerLink]="['/', 'notes', 'edit', note.id]"> 
+          <ion-card-header>
+            <ion-card-subtitle>{{ note.createdDate | date }}</ion-card-subtitle>
+            <ion-card-title class="ion-text-capitalize">{{ note.title }}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content class="line-breaker">
+            {{ note.description }}
+          </ion-card-content>
+          </div>
+          <ion-buttons *ngIf="(platform.is('mobile') && platform.is('hybrid'))" mode="md" class="ion-float-right">
+            <ion-button (click)="share(note)">
+              <ion-icon name="share" slot="icon-only"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+          </ion-card>
+      </div>  
+    </ngx-masonry>       
+  <div class="banner-space"></div>
+</ion-content>

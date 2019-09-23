@@ -1,0 +1,7 @@
+{
+  "appId": "com.dmbajaj2498.virtualNotes",
+  "appName": "VirtualNotes",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www"
+}

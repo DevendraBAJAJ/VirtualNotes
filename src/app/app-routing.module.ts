@@ -1,9 +1,33 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)},
+  { path: '', redirectTo: 'notes', pathMatch: 'full' },
+  { path: 'auth', loadChildren: './auth/auth.module#AuthPageModule' },
+  {
+    path: 'notes',
+    children: [
+      {
+          path: '',
+          loadChildren: './notes/notes.module#NotesPageModule',
+          canLoad: [AuthGuard]
+      },
+      {
+        path: 'new',
+        loadChildren: './notes/new-note/new-note.module#NewNotePageModule'
+      },
+      {
+        path: 'edit/:noteId',
+        loadChildren: './notes/edit-note/edit-note.module#EditNotePageModule'
+      },
+      {
+          path: ':noteId',
+          loadChildren: './notes/note-detail/note-detail.module#NoteDetailPageModule'
+      }
+    ]
+  },
+  { path: 'settings', loadChildren: './settings/settings.module#SettingsPageModule' }
 ];
 
 @NgModule({
